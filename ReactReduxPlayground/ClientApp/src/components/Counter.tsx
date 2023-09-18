@@ -9,25 +9,23 @@ type CounterProps =
     typeof CounterStore.actionCreators &
     RouteComponentProps<{}>;
 
-class Counter extends React.PureComponent<CounterProps> {
-    public render() {
-        return (
-            <React.Fragment>
-                <h1>Counter</h1>
+const Counter: React.FC<CounterProps> = (props) => {
+    return (
+        <>
+            <h1>Counter</h1>
 
-                <p>This is a simple example of a React component.</p>
+            <p>This is a simple example of a React component.</p>
 
-                <p aria-live="polite">Current count: <strong>{this.props.count}</strong></p>
+            <p aria-live="polite">Current count: <strong>{props.count}</strong></p>
 
-                <button type="button"
-                    className="btn btn-primary btn-lg"
-                    onClick={() => { this.props.increment(); }}>
-                    Increment
-                </button>
-            </React.Fragment>
-        );
-    }
-};
+            <button type="button"
+                className="btn btn-primary btn-lg"
+                onClick={() => { props.increment(); }}>
+                Increment
+            </button>
+        </>
+    );
+}
 
 export default connect(
     (state: ApplicationState) => state.counter,
