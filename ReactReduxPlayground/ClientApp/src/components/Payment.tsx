@@ -1,10 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Link } from 'react-router-dom';
 import { ApplicationState } from "../store";
 import * as PaymentStore from '../store/Payment';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type PaymentProps =
     PaymentStore.PaymentState
@@ -14,6 +13,14 @@ type PaymentProps =
 const Payment: React.FC<PaymentProps> = (props) => {
 
     const [id, setId] = useState(props.match.params.id || "");
+
+    const handleClick = async () => {
+        props.requestPayment(id);
+    };
+
+    useEffect(() => {
+        handleClick();
+    }, []);
 
     return (
         <>
@@ -25,9 +32,7 @@ const Payment: React.FC<PaymentProps> = (props) => {
                 onChange={(e) => setId(e.target.value)}
             />
             <p>Amount: {props.amount}</p>
-            <Link className="btn btn-primary" to={`/payment/${id}`}>
-                Submit
-            </Link>
+            <button className="btn btn-primary" onClick={handleClick}>Submit</button>
         </>
     );
 };

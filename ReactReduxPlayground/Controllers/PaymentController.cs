@@ -7,7 +7,7 @@ namespace ReactReduxPlayground.Controllers;
 [Route("[controller]")]
 public class PaymentController : ControllerBase
 {
-    [HttpGet]
-    public PaymentData Get(decimal amount) =>
-        new() { Amount = amount + 1M };
+    [HttpPost]
+    public PaymentData Post(PaymentRequest? dto) =>
+        new() { Amount = dto?.Id?.Length * 100 ?? 0 };
 }

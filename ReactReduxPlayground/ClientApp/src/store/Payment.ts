@@ -32,7 +32,14 @@ export const actionCreators = {
     requestPayment: (id: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
         if (appState?.payment && id !== appState.payment.id) {
-            fetch(`payment/${id}`)
+            fetch(`Payment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ "id": id }),
+            })
                 .then(response => response.json() as Promise<PaymentInfo>)
                 .then(data => {
                     dispatch({ type: 'RECEIVE_PAYMENT', id: data.id, amount: data.amount, subject: data.subject });
